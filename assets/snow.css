@@ -1,0 +1,80 @@
+.weather-bg.snow { 
+    background: linear-gradient(180deg, #d7eaff 0%, #bad2eb 50%, #94bce4 100%);
+}
+
+.snow-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+.weather-bg.snow .snow-container {
+    opacity: 1;
+}
+
+/*  Snow Layers  */
+.snow-layer {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 200vh;
+    animation: snow-fall var(--fall-duration) linear infinite;
+    will-change: transform;
+}
+
+@keyframes snow-fall {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(50%);
+    }
+}
+
+/*  Snowflake Elements  */
+.snowflake {
+    position: absolute;
+    pointer-events: none;
+    color: white;
+}
+
+.snowflake::before {
+    content: '❄';
+    display: block;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    animation: 
+        snow-sway ease-in-out infinite,
+        snow-rotate linear infinite;
+    animation-duration: var(--sway-duration), var(--rotation-speed);
+}
+
+/*  Snowflake Animations  */
+@keyframes snow-sway {
+    0%, 100% { 
+        transform: translateX(0); 
+    }
+    50% { 
+        transform: translateX(var(--sway-distance)); 
+    }
+}
+
+@keyframes snow-rotate {
+    from { 
+        transform: rotate(0deg); 
+    }
+    to { 
+        transform: rotate(360deg); 
+    }
+}
+
+.weather-bg.snow::before,
+.weather-bg.snow::after {
+    display: none !important;
+}

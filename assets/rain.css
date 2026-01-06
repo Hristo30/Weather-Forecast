@@ -1,0 +1,63 @@
+.weather-bg.rain { 
+    background: linear-gradient(180deg, #2c3e50 0%, #34495e 50%, #4a6491 100%);
+}
+
+.rain-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.weather-bg.rain .rain-container {
+    opacity: 1;
+}
+
+/*  Rain Drop Elements  */
+.rain-drop {
+    position: absolute;
+    background: linear-gradient(
+        to bottom, 
+        rgba(255,255,255,0.9) 0%, 
+        rgba(200,220,255,0.8) 100%
+    );
+    height: 40px;
+    width: 2px;
+    top: -40px;
+    border-radius: 1px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+/*  Rain Animation  */
+.weather-bg.rain .rain-drop {
+    animation: rain-fall linear infinite;
+    animation-duration: 2s;
+}
+
+@keyframes rain-fall {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) translateX(30px);
+        opacity: 0;
+    }
+}
+
+.weather-bg.rain::before,
+.weather-bg.rain::after {
+    display: none !important;
+}

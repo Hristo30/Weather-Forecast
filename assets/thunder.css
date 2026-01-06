@@ -1,0 +1,265 @@
+/* BG Gradient*/
+.weather-bg.thunder { 
+    background: linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+}
+
+
+.thunder-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+.weather-bg.thunder .thunder-container {
+    opacity: 1;
+}
+
+/* Thunder Layers*/
+.thunder-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200vw;
+    height: 100%;
+    animation: cloud-scroll var(--scroll-duration) linear infinite;
+    will-change: transform;
+    z-index: 1;
+}
+
+@keyframes cloud-scroll {
+    0% { 
+        transform: translateX(0); 
+    }
+    100% { 
+        transform: translateX(-50%); 
+    }
+}
+
+
+.thunder-cloud-container {
+    position: absolute;
+    z-index: 1;
+}
+
+
+.thunder-cloud {
+    position: relative;
+    background: rgba(40, 40, 70, 0.98);
+    border-radius: 100px;
+    box-shadow: 
+        0 15px 30px rgba(10, 10, 30, 0.6),
+        inset 0 -8px 15px rgba(20, 20, 40, 0.5);
+    filter: blur(3px);
+    z-index: 2;
+}
+
+.thunder-cloud::before,
+.thunder-cloud::after {
+    content: '';
+    position: absolute;
+    background: rgba(40, 40, 70, 0.98);
+    border-radius: 50%;
+}
+
+.thunder-cloud::before {
+    width: 60%;
+    height: 90%;
+    top: -45%;
+    left: 15%;
+}
+
+.thunder-cloud::after {
+    width: 70%;
+    height: 110%;
+    top: -55%;
+    right: 15%;
+}
+
+.cloud-lightning {
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    width: 0;
+    height: 0;
+}
+
+.lightning-bolt {
+    position: absolute;
+    width: 3px;
+    height: var(--bolt-height, 25vh);
+    background: linear-gradient(
+        to bottom, 
+        rgba(255,255,255,0) 0%, 
+        rgba(255,255,255,0.8) 5%, 
+        rgba(220,240,255,1) 20%, 
+        rgba(255,255,255,1) 40%, 
+        rgba(200,220,255,0.9) 60%, 
+        rgba(255,255,255,0.4) 80%,
+        rgba(255,255,255,0) 100%
+    );
+    opacity: 0;
+    transform: translateX(-50%) skewX(var(--skew, -5deg));
+    transform-origin: top center;
+    box-shadow: 
+        0 0 15px rgba(255, 255, 255, 1),
+        0 0 30px rgba(180, 220, 255, 0.8),
+        0 0 45px rgba(200, 230, 255, 0.4);
+    pointer-events: none;
+    animation: lightning-flash var(--flash-duration) ease-in-out infinite;
+    animation-delay: var(--flash-delay);
+    filter: blur(0.5px);
+}
+
+.lightning-bolt::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 35%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,1) 0%,
+        rgba(220,240,255,0.8) 50%,
+        rgba(255,255,255,0) 100%
+    );
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) rotate(var(--branch-angle, 25deg));
+    opacity: 0.85;
+    filter: blur(0.5px);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    animation: inherit;
+    animation-delay: inherit;
+}
+
+.lightning-bolt::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 28%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,1) 0%,
+        rgba(220,240,255,0.8) 50%,
+        rgba(255,255,255,0) 100%
+    );
+    left: 50%;
+    top: 30%;
+    transform: translateX(-50%) rotate(var(--branch-angle2, -30deg));
+    opacity: 0.75;
+    filter: blur(0.5px);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+    animation: inherit;
+    animation-delay: inherit;
+}
+
+.cloud-glow {
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--cloud-width, 150px);
+    height: 40px;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(200, 220, 255, 0.2) 30%,
+        transparent 70%
+    );
+    border-radius: 50%;
+    opacity: 0;
+    filter: blur(15px);
+    z-index: 1.5;
+    animation: cloud-glow var(--flash-duration) ease-in-out infinite;
+    animation-delay: var(--flash-delay);
+    mix-blend-mode: screen;
+}
+
+@keyframes lightning-flash {
+    0%, 92% { 
+        opacity: 0; 
+        transform: translateX(-50%) skewX(var(--skew, -5deg)) scaleY(0.3);
+    }
+    92.5% { 
+        opacity: 0.3; 
+    }
+    93% { 
+        opacity: 0.9; 
+        transform: translateX(-50%) skewX(var(--skew, -5deg)) scaleY(0.9);
+    }
+    93.5% { 
+        opacity: 0.4; 
+        transform: translateX(-50%) skewX(var(--skew, -5deg)) scaleY(1);
+    }
+    94% { 
+        opacity: 1; 
+        transform: translateX(-50%) skewX(var(--skew, -5deg)) scaleY(1.05);
+    }
+    94.5% { 
+        opacity: 0.5; 
+    }
+    95% { 
+        opacity: 0.9; 
+    }
+    95.5% { 
+        opacity: 0.2; 
+    }
+    96% { 
+        opacity: 0.7; 
+    }
+    96.5% { 
+        opacity: 0.1; 
+    }
+    97% { 
+        opacity: 0.4; 
+    }
+    97.5% { 
+        opacity: 0; 
+    }
+    100% { 
+        opacity: 0; 
+    }
+}
+
+@keyframes cloud-glow {
+    0%, 92% { 
+        opacity: 0; 
+        transform: translateX(-50%) scale(0.8); 
+    }
+    93% { 
+        opacity: 0.8; 
+        transform: translateX(-50%) scale(1); 
+    }
+    94% { 
+        opacity: 0.4; 
+        transform: translateX(-50%) scale(1.1); 
+    }
+    95% { 
+        opacity: 0.6; 
+        transform: translateX(-50%) scale(1); 
+    }
+    96% { 
+        opacity: 0.2; 
+        transform: translateX(-50%) scale(1.05); 
+    }
+    97% { 
+        opacity: 0; 
+        transform: translateX(-50%) scale(1); 
+    }
+    100% { 
+        opacity: 0; 
+    }
+}
+
+.weather-bg.thunder::before,
+.weather-bg.thunder::after {
+    display: none !important;
+}
