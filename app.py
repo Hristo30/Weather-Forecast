@@ -8,6 +8,7 @@ from datetime import datetime
 import math
 
 app = Dash(__name__)
+server = app.server
 
 # Weather Mapping
 WEATHER_MAPPING = {
@@ -880,4 +881,9 @@ def update_dashboard(city_name, n_today, n_7days, test_store, current_view):
     )
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    import os
+    app.run_server(
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 8050)),
+        debug=False
+    )
